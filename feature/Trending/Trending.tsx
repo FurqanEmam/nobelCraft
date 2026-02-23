@@ -1,85 +1,21 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { getAllProducts } from "@/lib/products-store";
+import type { Product } from "@/lib/product-types";
 
-const trendingItems = [
-  {
-    id: "1",
-    name: "Classic Oxford Shirt",
-    category: "Shirt",
-    price: 89,
-    image:
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80",
-    alt: "Classic Oxford Shirt",
-    href: "/shop/oxford-shirt",
-  },
-  {
-    id: "2",
-    name: "Essential Cotton T-Shirt",
-    category: "T-Shirt",
-    price: 32,
-    image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80",
-    alt: "Essential Cotton T-Shirt",
-    href: "/shop/cotton-tshirt",
-  },
-  {
-    id: "3",
-    name: "Premium Polo",
-    category: "Polo",
-    price: 58,
-    image:
-      "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&q=80",
-    alt: "Premium Polo",
-    href: "/shop/polo",
-  },
-  {
-    id: "4",
-    name: "Relaxed Linen Shirt",
-    category: "Shirt",
-    price: 95,
-    image:
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&q=80",
-    alt: "Relaxed Linen Shirt",
-    href: "/shop/linen-shirt",
-  },
-  {
-    id: "5",
-    name: "Oversized Graphic Tee",
-    category: "T-Shirt",
-    price: 42,
-    image:
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&q=80",
-    alt: "Oversized Graphic Tee",
-    href: "/shop/graphic-tee",
-  },
-  {
-    id: "6",
-    name: "Striped Breton Top",
-    category: "T-Shirt",
-    price: 48,
-    image:
-      "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=600&q=80",
-    alt: "Striped Breton Top",
-    href: "/shop/breton",
-  },
-];
-
-function TrendingCard({ item }: { item: (typeof trendingItems)[number] }) {
+function TrendingCard({ item }: { item: Product }) {
   return (
     <Link
       href={item.href}
       className="group flex w-[280px] shrink-0 flex-col overflow-hidden rounded-xl border border-black/8 bg-white transition hover:border-black/12 hover:shadow-lg dark:border-white/12 dark:bg-zinc-900/50 dark:hover:border-white/18 dark:hover:shadow-zinc-900/50"
     >
       <div className="relative aspect-3/4 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-        <Image
-          src={item.image}
+        <img
+          src={item.images[0] || ""}
           alt={item.alt}
-          fill
-          sizes="280px"
-          className="object-cover transition duration-300 group-hover:scale-105"
+          className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
         />
       </div>
       <div className="flex flex-1 flex-col p-4">
@@ -91,6 +27,11 @@ function TrendingCard({ item }: { item: (typeof trendingItems)[number] }) {
         </h3>
         <p className="mt-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
           ${item.price}
+          {item.discount != null && item.discount > 0 && (
+            <span className="ml-2 text-green-600 dark:text-green-400">
+              ({item.discount}% off)
+            </span>
+          )}
         </p>
       </div>
     </Link>
@@ -99,6 +40,18 @@ function TrendingCard({ item }: { item: (typeof trendingItems)[number] }) {
 
 export const Trending = () => {
   const [isPaused, setIsPaused] = React.useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const refresh = () => setProducts(getAllProducts());
+    refresh();
+    window.addEventListener("nobelcraft-products-updated", refresh);
+    window.addEventListener("storage", refresh);
+    return () => {
+      window.removeEventListener("nobelcraft-products-updated", refresh);
+      window.removeEventListener("storage", refresh);
+    };
+  }, []);
 
   return (
     <section className="w-full overflow-hidden bg-background py-16 sm:py-20 md:py-24">
@@ -128,7 +81,7 @@ export const Trending = () => {
             animationPlayState: isPaused ? "paused" : "running",
           }}
         >
-          {[...trendingItems, ...trendingItems].map((item, index) => (
+          {[...products, ...products].map((item, index) => (
             <TrendingCard key={`trending-${item.id}-${index}`} item={item} />
           ))}
         </div>

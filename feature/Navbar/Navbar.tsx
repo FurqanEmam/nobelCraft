@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/context/auth-context";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -12,6 +13,7 @@ const navLinks = [
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/8 bg-white/80 backdrop-blur-md dark:border-white/[.145] dark:bg-black/80">
@@ -35,6 +37,14 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href={isAuthenticated ? "/dashboard" : "/DashLogin"}
+              className="text-sm font-medium text-zinc-600 transition-colors hover:text-foreground dark:text-zinc-400 dark:hover:text-zinc-50"
+            >
+              {isAuthenticated ? "Dashboard" : "Admin"}
+            </Link>
+          </li>
         </ul>
 
         {/* Mobile menu button */}
@@ -87,6 +97,15 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href={isAuthenticated ? "/dashboard" : "/DashLogin"}
+                className="block rounded-lg px-4 py-3 text-sm font-medium text-zinc-600 transition-colors hover:bg-black/4 hover:text-foreground dark:text-zinc-400 dark:hover:bg-white/8 dark:hover:text-zinc-50"
+                onClick={() => setMobileOpen(false)}
+              >
+                {isAuthenticated ? "Dashboard" : "Admin"}
+              </Link>
+            </li>
           </ul>
         </div>
       )}
