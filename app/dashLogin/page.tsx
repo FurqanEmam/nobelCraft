@@ -18,7 +18,7 @@ const Page = () => {
     if (login(email, password)) {
       router.push("/dashboard");
     } else {
-      setError("Invalid email or password. Use admin@nobelcraft.com / admin123");
+      setError("Invalid email or password.");
     }
   };
 
