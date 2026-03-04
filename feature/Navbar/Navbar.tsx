@@ -37,14 +37,14 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
-          <li>
+          {/* <li>
             <Link
               href={isAuthenticated ? "/dashboard" : "/DashLogin"}
               className="text-sm font-medium text-zinc-600 transition-colors hover:text-foreground dark:text-zinc-400 dark:hover:text-zinc-50"
             >
               {isAuthenticated ? "Dashboard" : "Admin"}
             </Link>
-          </li>
+          </li> */}
         </ul>
 
         {/* Mobile menu button */}

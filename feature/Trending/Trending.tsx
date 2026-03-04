@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { getAllProducts } from "@/lib/products-store";
 import type { Product } from "@/lib/product-types";
@@ -12,11 +13,15 @@ function TrendingCard({ item }: { item: Product }) {
       className="group flex w-[280px] shrink-0 flex-col overflow-hidden rounded-xl border border-black/8 bg-white transition hover:border-black/12 hover:shadow-lg dark:border-white/12 dark:bg-zinc-900/50 dark:hover:border-white/18 dark:hover:shadow-zinc-900/50"
     >
       <div className="relative aspect-3/4 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-        <img
-          src={item.images[0] || ""}
-          alt={item.alt}
-          className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-        />
+        {item.images[0] ? (
+          <Image
+            src={item.images[0]}
+            alt={item.alt}
+            fill
+            sizes="280px"
+            className="object-cover transition duration-300 group-hover:scale-105"
+          />
+        ) : null}
       </div>
       <div className="flex flex-1 flex-col p-4">
         <span className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
@@ -38,9 +43,18 @@ function TrendingCard({ item }: { item: Product }) {
   );
 }
 
+const CARD_WIDTH = 280;
+const GAP = 24;
+const DURATION_ONE_LOOP_MS = 45000;
+
 export const Trending = () => {
-  const [isPaused, setIsPaused] = React.useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [offsetX, setOffsetX] = useState(0);
+  const startTimeRef = useRef<number>(0);
+  const rafRef = useRef<number>(0);
+  const wasPausedRef = useRef(false);
+  const offsetXRef = useRef(0);
 
   useEffect(() => {
     const refresh = () => setProducts(getAllProducts());
@@ -52,6 +66,38 @@ export const Trending = () => {
       window.removeEventListener("storage", refresh);
     };
   }, []);
+
+  const duplicated = products.length > 0 ? [...products, ...products] : [];
+  const halfWidth = products.length * (CARD_WIDTH + GAP) + GAP;
+
+  useEffect(() => {
+    if (duplicated.length === 0) return;
+
+    const animate = (now: number) => {
+      rafRef.current = requestAnimationFrame(animate);
+      if (isPaused) {
+        wasPausedRef.current = true;
+        startTimeRef.current = now;
+        return;
+      }
+      if (wasPausedRef.current) {
+        wasPausedRef.current = false;
+        const currentOffset = offsetXRef.current;
+        if (halfWidth > 0) {
+          startTimeRef.current = now - ((-currentOffset / halfWidth) * DURATION_ONE_LOOP_MS) % DURATION_ONE_LOOP_MS;
+        }
+      }
+      const elapsed = now - startTimeRef.current;
+      const progress = (elapsed / DURATION_ONE_LOOP_MS) % 1;
+      const nextX = -(progress * halfWidth);
+      offsetXRef.current = nextX;
+      setOffsetX(nextX);
+    };
+
+    startTimeRef.current = performance.now();
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [duplicated.length, halfWidth, isPaused]);
 
   return (
     <section className="w-full overflow-hidden bg-background py-16 sm:py-20 md:py-24">
@@ -72,16 +118,13 @@ export const Trending = () => {
         onMouseLeave={() => setIsPaused(false)}
       >
         <div
-          className="flex gap-6 pr-6"
+          className="flex shrink-0 gap-6 pr-6"
           style={{
-            animationName: "trending-scroll",
-            animationDuration: "45s",
-            animationTimingFunction: "linear",
-            animationIterationCount: "infinite",
-            animationPlayState: isPaused ? "paused" : "running",
+            transform: `translateX(${offsetX}px)`,
+            width: "max-content",
           }}
         >
-          {[...products, ...products].map((item, index) => (
+          {duplicated.map((item, index) => (
             <TrendingCard key={`trending-${item.id}-${index}`} item={item} />
           ))}
         </div>

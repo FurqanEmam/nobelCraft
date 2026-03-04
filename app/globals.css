@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Global keyframes for Trending scroll – must be outside @theme for inline animation-name to resolve */
+@keyframes trending-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
