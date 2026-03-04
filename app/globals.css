@@ -10,6 +10,15 @@
   }
 }
 
+@keyframes banner-shine {
+  0%, 100% {
+    background-position: 200% 0;
+  }
+  50% {
+    background-position: -100% 0;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

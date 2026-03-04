@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import FreeDeliveryBanner from "@/feature/FreeDeliveryBanner/FreeDeliveryBanner";
 import Navbar from "@/feature/Navbar/Navbar";
 import Footer from "@/feature/Footer/Footer";
 import { AuthProvider } from "@/context/auth-context";
@@ -33,6 +34,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <AuthProvider>
+          <FreeDeliveryBanner />
           <Navbar />
           {children}
           <Footer />
