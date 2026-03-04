@@ -7,52 +7,164 @@ const STORAGE_KEY = "nobelcraft-products";
 const defaultProducts: Product[] = [
   {
     id: "1",
-    name: "Classic Oxford Shirt",
-    category: "Shirt",
-    description: "Timeless oxford shirt in premium cotton.",
-    price: 89,
+    name: "Orange Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1700,
     images: [
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80",
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579400/WhatsApp_Image_2026-03-04_at_4.04.19_AM_szvxak.jpg",
     ],
     stocks: 50,
     sizes: ["S", "M", "L", "XL"],
-    discount: 10,
+    discount: 0,
     offer: "Free shipping over $100",
-    href: "/shop/oxford-shirt",
-    alt: "Classic Oxford Shirt",
+    href: "/shop/product-1",
+    alt: "Product 1",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
   {
     id: "2",
-    name: "Essential Cotton T-Shirt",
-    category: "T-Shirt",
-    description: "Soft cotton tee for everyday wear.",
-    price: 32,
+    name: "White Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1700,
     images: [
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80",
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579400/WhatsApp_Image_2026-03-04_at_4.04.21_AM_hybjzx.jpg",
     ],
     stocks: 120,
     sizes: ["XS", "S", "M", "L", "XL"],
-    href: "/shop/cotton-tshirt",
-    alt: "Essential Cotton T-Shirt",
+    href: "/shop/product-2",
+    alt: "Product 2",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
   {
     id: "3",
-    name: "Premium Polo",
-    category: "Polo",
-    description: "Elegant polo in breathable fabric.",
-    price: 58,
+    name: "Black Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1700,
     images: [
-      "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&q=80",
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579400/WhatsApp_Image_2026-03-04_at_4.04.21_AM_1_x3bzjy.jpg",
     ],
     stocks: 75,
     sizes: ["S", "M", "L", "XL"],
-    discount: 15,
-    href: "/shop/polo",
-    alt: "Premium Polo",
+    discount: 0,
+    href: "/shop/product-3",
+    alt: "Product 3",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "4",
+    name: "Deep Brown Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1700,
+    images: [
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579400/WhatsApp_Image_2026-03-04_at_4.04.21_AM_2_t3vcbl.jpg",
+    ],
+    stocks: 60,
+    sizes: ["S", "M", "L", "XL"],
+    href: "/shop/product-4",
+    alt: "Product 4",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "5",
+    name: "Light Green Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1350,
+    images: [
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579400/WhatsApp_Image_2026-03-04_at_4.04.38_AM_wv8whw.jpg",
+    ],
+    stocks: 80,
+    sizes: ["S", "M", "L", "XL"],
+    href: "/shop/product-5",
+    alt: "Product 5",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "6",
+    name: "Black T-Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1350,
+    images: [
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579400/WhatsApp_Image_2026-03-04_at_4.04.39_AM_gsmcgo.jpg",
+    ],
+    stocks: 70,
+    sizes: ["S", "M", "L", "XL"],
+    href: "/shop/product-6",
+    alt: "Product 6",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "7",
+    name: "Sky-Blue T-Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1350,
+    images: [
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579399/WhatsApp_Image_2026-03-04_at_4.04.39_AM_1_ozc9u7.jpg",
+    ],
+    stocks: 90,
+    sizes: ["S", "M", "L", "XL"],
+    href: "/shop/product-7",
+    alt: "Product 7",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "8",
+    name: "White T-Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1350,
+    images: [
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579399/WhatsApp_Image_2026-03-04_at_4.04.38_AM_1_wwhnxb.jpg",
+    ],
+    stocks: 85,
+    sizes: ["S", "M", "L", "XL"],
+    href: "/shop/product-8",
+    alt: "Product 8",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "9",
+    name: "Off-White T-Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1350,
+    images: [
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579399/WhatsApp_Image_2026-03-04_at_4.04.20_AM_ktzcxy.jpg",
+    ],
+    stocks: 100,
+    sizes: ["S", "M", "L", "XL"],
+    href: "/shop/product-9",
+    alt: "Product 9",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "10",
+    name: "Black Shirt",
+    category: "Apparel",
+    description: "Quality product from NobelCraft.",
+    price: 1700,
+    images: [
+      "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579399/WhatsApp_Image_2026-03-04_at_4.04.20_AM_1_kguynw.jpg",
+    ],
+    stocks: 95,
+    sizes: ["S", "M", "L", "XL"],
+    href: "/shop/product-10",
+    alt: "Product 10",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
@@ -88,7 +200,9 @@ export function getProductById(id: string): Product | undefined {
   return getProductsFromStorage().find((p) => p.id === id);
 }
 
-export function addProduct(data: Omit<Product, "id" | "createdAt" | "updatedAt">): Product {
+export function addProduct(
+  data: Omit<Product, "id" | "createdAt" | "updatedAt">,
+): Product {
   const products = getProductsFromStorage();
   const now = new Date().toISOString();
   const id = crypto.randomUUID();
@@ -103,7 +217,10 @@ export function addProduct(data: Omit<Product, "id" | "createdAt" | "updatedAt">
   return product;
 }
 
-export function updateProduct(id: string, data: Partial<Product>): Product | null {
+export function updateProduct(
+  id: string,
+  data: Partial<Product>,
+): Product | null {
   const products = getProductsFromStorage();
   const index = products.findIndex((p) => p.id === id);
   if (index === -1) return null;
