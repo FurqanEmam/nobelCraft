@@ -141,7 +141,7 @@ const defaultProducts: Product[] = [
     name: "Off-White T-Shirt",
     category: "Apparel",
     description: "Quality product from NobelCraft.",
-    price: 1350,
+    price: 1700,
     images: [
       "https://res.cloudinary.com/dtnazotdl/image/upload/v1772579399/WhatsApp_Image_2026-03-04_at_4.04.20_AM_ktzcxy.jpg",
     ],
